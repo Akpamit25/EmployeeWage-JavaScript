@@ -29,14 +29,16 @@ let empHRS = 0,empWage = 0,empCheck = 0,days=1;
 let empDailyWageArray = new Array();
 let totalEmpHrs = 0;
 let totalWage = 0;
+let empDailyWageMap = new Map();
 
 while(days<=NO_OF_WRK_DAYS && empHRS<=MAX_WRK_HRS)
 {
-days++;
 empCheck = Math.floor(Math.random() * 10) % 3;
 empHRS = getWorkHRs(empCheck);
 totalEmpHrs += empHRS;
 empDailyWageArray.push(calculateDailyWage(empHRS));
+empDailyWageMap.set(days,calculateDailyWage(empHRS));
+days++;
 }
 
 function calculateTotalWage(dailyWage)
@@ -52,7 +54,6 @@ function totalWageReduce(totalWages,wage)
 }
 console.log("Wage = "+empDailyWageArray.reduce(totalWageReduce,0)+" WorkHrs = "+totalEmpHrs);
 
-
 let dayCount = 0;
 function showDayWithWage(wage)
 {
@@ -62,7 +63,6 @@ function showDayWithWage(wage)
 let dayWithWage = empDailyWageArray.map(showDayWithWage);
 console.log(dayWithWage);
 
-
 function showDayWithFullTime(wage)
 {
     return wage.includes("160");
@@ -70,14 +70,12 @@ function showDayWithFullTime(wage)
 let daysWithFullTime = dayWithWage.filter(showDayWithFullTime);
 console.log(daysWithFullTime);
 
-
 function firstFulltime(wage)
 {
     return wage.includes("160");
 }
 let firstDayFullTime = dayWithWage.find(showDayWithFullTime);
 console.log(firstDayFullTime);
-
 
 function checkFullTime(wage)
 {
@@ -91,7 +89,6 @@ function checkPartTime(wage)
 }
 console.log(dayWithWage.some(checkPartTime));
 
-
 function totalDaysWorked(totalDays,dailyWage)
 {
     if(dailyWage>0)
@@ -100,3 +97,10 @@ function totalDaysWorked(totalDays,dailyWage)
 }
 let daysTotal = empDailyWageArray.reduce(totalDaysWorked,0);
 console.log("Total Days Worked = "+daysTotal);
+
+function totalWageCalculate(totalwage,wage)
+{
+    return totalwage+wage;
+}
+
+console.log("Total wage = "+Array.from(empDailyWageMap.values()).reduce(totalWageCalculate,0));
