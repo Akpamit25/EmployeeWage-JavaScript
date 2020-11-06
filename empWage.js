@@ -4,6 +4,7 @@ const PART_TIME_HRS = 4;
 const FULL_TIME_HRS = 8;
 const WAGE_PER_HR = 20;
 const NO_OF_WRK_DAYS = 20;
+const MAX_WRK_HRS = 160;
 
 
 function getWorkHRs(empCheck)
@@ -19,9 +20,10 @@ switch (empCheck) {
         return 0;
 }
 }
-let empHRS = 0,empWage = 0,empCheck = 0;
-for(let i=0;i<20;i++)
+let empHRS = 0,empWage = 0,empCheck = 0,days=0;
+while(days<=NO_OF_WRK_DAYS && empHRS<=MAX_WRK_HRS)
 {
+days++;
 empCheck = Math.floor(Math.random() * 10) % 3;
 empHRS += getWorkHRs(empCheck) ;
 }
