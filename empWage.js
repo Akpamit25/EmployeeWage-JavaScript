@@ -20,12 +20,20 @@ switch (empCheck) {
         return 0;
 }
 }
+
+function calculateDailyWage(empHrs)
+{
+    return empHRS * WAGE_PER_HR;
+}
 let empHRS = 0,empWage = 0,empCheck = 0,days=0;
+let empDailyWageArray = new Array();
+
 while(days<=NO_OF_WRK_DAYS && empHRS<=MAX_WRK_HRS)
 {
 days++;
 empCheck = Math.floor(Math.random() * 10) % 3;
-empHRS += getWorkHRs(empCheck) ;
+empHRS += getWorkHRs(empCheck);
+empDailyWageArray.push(calculateDailyWage(empHRS));
 }
-empWage = WAGE_PER_HR * empHRS;
-console.log("Wage = "+empWage+" , "+" Work Hours = "+empHRS);
+empWage = calculateDailyWage(empHRS);
+console.log("Wage = "+empWage+" WorkHrs = "+empHRS);
